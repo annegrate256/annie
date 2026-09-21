@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victor's Nest Marketing Consultants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#221c14;
+    --paper:#f2ead9;
+    --paper-2:#e9dfc7;
+    --espresso:#221c14;
+    --espresso-2:#332a1d;
+    --brass:#af8746;
+    --brass-light:#c9a465;
+    --olive:#3c4530;
+    --olive-light:#5a6647;
+    --white:#fbf8f1;
+    --line: rgba(34,28,20,0.14);
+    --line-dark: rgba(251,248,241,0.16);
+    --max: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(242,234,217,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:38px; height:38px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-size:14px; font-weight:600;
+    letter-spacing:0.02em;
+  }
+  .brand-name{ font-family:'Fraunces', serif; font-size:18px; font-weight:500; }
+  .brand-name span{ display:block; font-family:'Work Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; color:var(--brass); margin-top:1px;}
+  .nav-links{ display:flex; gap:34px; font-size:14.5px; }
+  .nav-links a{ text-decoration:none; border-bottom:1px solid transparent; padding-bottom:3px; transition:border-color .2s; }
+  .nav-links a:hover{ border-color:var(--brass); }
+  .nav-cta{
+    background:var(--ink); color:var(--white); padding:10px 20px;
+    border-radius:2px; font-size:14px; text-decoration:none;
+    border:1px solid var(--ink); transition:background .2s, color .2s;
+  }
+  .nav-cta:hover{ background:transparent; color:var(--ink); }
+  .nav-toggle{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .nav-toggle svg{ width:24px; height:24px; }
+  @media (max-width:860px){
+    .nav-links{ display:none; }
+    .nav-cta{ display:none; }
+    .nav-toggle{ display:block; }
+  }
+
+  /* mobile menu */
+  .mobile-menu{
+    display:none; flex-direction:column; gap:0;
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{
+    padding:16px 32px; text-decoration:none; border-top:1px solid var(--line); font-size:15px;
+  }
+  .mobile-menu a.mm-cta{ color:var(--brass); font-weight:600; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink);
+    color:var(--white);
+    position:relative;
+    overflow:hidden;
+    padding:96px 0 110px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle at 82% 18%, rgba(175,135,70,0.35), transparent 45%),
+      repeating-linear-gradient(115deg, rgba(251,248,241,0.035) 0px, rgba(251,248,241,0.035) 1px, transparent 1px, transparent 64px);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; display:grid; grid-template-columns:1.25fr 0.9fr; gap:64px; align-items:end; }
+  @media (max-width:900px){ .hero-inner{ grid-template-columns:1fr; gap:44px; } }
+  .hero-eyebrow{
+    font-size:13.5px; color:var(--brass-light); letter-spacing:0.02em; margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before{ content:""; width:26px; height:1px; background:var(--brass-light); display:inline-block; }
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 68px);
+    line-height:1.04;
+    color:var(--white);
+    max-width:14ch;
+  }
+  .hero h1 em{ font-style:italic; color:var(--brass-light); font-weight:400; }
+  .hero-sub{
+    margin-top:26px; font-size:17.5px; color:rgba(251,248,241,0.78); max-width:46ch;
+  }
+  .hero-actions{ margin-top:38px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--brass); color:var(--ink); padding:15px 28px;
+    text-decoration:none; font-size:14.5px; font-weight:600; border-radius:2px;
+    border:1px solid var(--brass); transition:background .2s,color .2s;
+  }
+  .btn-primary:hover{ background:transparent; color:var(--white); }
+  .btn-ghost{
+    padding:15px 26px; text-decoration:none; font-size:14.5px; font-weight:500;
+    border:1px solid var(--line-dark); color:var(--white); border-radius:2px;
+    transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{ border-color:var(--brass-light); background:rgba(251,248,241,0.05); }
+
+  .hero-panel{
+    border:1px solid var(--line-dark);
+    padding:30px 28px;
+    background:rgba(251,248,241,0.03);
+  }
+  .hero-panel-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:16px 0; border-top:1px solid var(--line-dark);
+  }
+  .hero-panel-row:first-child{ border-top:none; padding-top:0; }
+  .hero-panel-row .num{ font-family:'Fraunces', serif; font-size:26px; color:var(--brass-light); }
+  .hero-panel-row .lbl{ font-size:13px; color:rgba(251,248,241,0.7); text-align:right; max-width:15ch; }
+
+  /* ---------- SECTION LABELS ---------- */
+  .section{ padding:96px 0; }
+  .section-tight{ padding:72px 0; }
+  .kicker{
+    font-size:13px; color:var(--brass); font-weight:600; letter-spacing:0.02em;
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .kicker::before{ content:""; width:22px; height:1px; background:var(--brass); }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(28px, 3.4vw, 42px); line-height:1.12; }
+  .section-head p{ margin-top:18px; font-size:16.5px; color:rgba(34,28,20,0.72); max-width:56ch; }
+
+  /* ---------- PROBLEM ---------- */
+  .problem{ background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .problem-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; }
+  @media (max-width:860px){ .problem-grid{ grid-template-columns:1fr; gap:36px; } }
+  .problem-grid h2{ font-size:clamp(26px,3.2vw,36px); line-height:1.18; }
+  .problem-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .problem-list li{
+    padding:22px 0; border-top:1px solid var(--line); display:flex; gap:20px;
+  }
+  .problem-list li:last-child{ border-bottom:1px solid var(--line); }
+  .problem-list .mark{ font-family:'Fraunces', serif; font-style:italic; color:var(--brass); font-size:20px; flex-shrink:0; width:24px; }
+  .problem-list strong{ font-weight:600; display:block; margin-bottom:4px; }
+  .problem-list span.desc{ color:rgba(34,28,20,0.7); font-size:15px; }
+
+  /* ---------- ABOUT ---------- */
+  .about-lead{
+    font-family:'Fraunces', serif; font-weight:400; font-style:normal;
+    font-size:clamp(21px, 2.4vw, 27px); line-height:1.5; color:var(--ink);
+    max-width:52ch; margin-bottom:56px;
+  }
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-block{ background:var(--paper); padding:38px 36px; }
+  .about-block .kicker{ margin-bottom:18px; }
+  .about-block p{ font-size:15px; color:rgba(34,28,20,0.72); margin:0; }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  @media (max-width:860px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .services-grid{ grid-template-columns:1fr; } }
+  .service-card{ background:var(--paper); padding:38px 32px; min-height:220px; display:flex; flex-direction:column; }
+  .service-card .glyph{ font-family:'Fraunces', serif; font-style:italic; font-size:15px; color:var(--brass); margin-bottom:22px;}
+  .service-card h3{ font-size:20px; margin-bottom:12px; font-weight:500; }
+  .service-card p{ font-size:14.5px; color:rgba(34,28,20,0.68); margin:0; flex-grow:1; }
+
+  /* ---------- PROCESS ---------- */
+  .process{ background:var(--ink); color:var(--white); }
+  .process .section-head p{ color:rgba(251,248,241,0.68); }
+  .process .kicker{ color:var(--brass-light); }
+  .process .kicker::before{ background:var(--brass-light); }
+  .process-list{ display:flex; flex-direction:column; }
+  .process-item{
+    display:grid; grid-template-columns:110px 1fr; gap:32px;
+    padding:34px 0; border-top:1px solid var(--line-dark);
+  }
+  .process-item:last-child{ border-bottom:1px solid var(--line-dark); }
+  @media (max-width:640px){ .process-item{ grid-template-columns:56px 1fr; gap:20px; } }
+  .process-item .pnum{ font-family:'Fraunces', serif; font-size:44px; color:var(--brass-light); line-height:1; }
+  @media (max-width:640px){ .process-item .pnum{ font-size:30px; } }
+  .process-item h3{ color:var(--white); font-size:21px; margin-bottom:8px; font-weight:500; }
+  .process-item p{ margin:0; color:rgba(251,248,241,0.68); font-size:15px; max-width:60ch; }
+
+  /* ---------- PRICING ---------- */
+  .pricing-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  @media (max-width:860px){ .pricing-grid{ grid-template-columns:1fr; } }
+  .price-card{
+    border:1px solid var(--line); background:var(--white);
+    padding:38px 34px; display:flex; flex-direction:column;
+  }
+  .price-card.featured{ border-color:var(--ink); background:var(--ink); color:var(--white); }
+  .price-card .tag{ font-size:12.5px; letter-spacing:0.02em; color:var(--brass); font-weight:600; margin-bottom:14px; }
+  .price-card.featured .tag{ color:var(--brass-light); }
+  .price-card h3{ font-size:24px; margin-bottom:10px; font-weight:500; }
+  .price-card .range{ font-family:'Fraunces', serif; font-size:30px; margin:14px 0 6px; }
+  .price-card .per{ font-size:13.5px; color:rgba(34,28,20,0.55); margin-bottom:24px; }
+  .price-card.featured .per{ color:rgba(251,248,241,0.6); }
+  .price-card ul{ list-style:none; padding:0; margin:0 0 26px; display:flex; flex-direction:column; gap:12px; flex-grow:1; }
+  .price-card li{ font-size:14.5px; padding-left:20px; position:relative; color:rgba(34,28,20,0.78); }
+  .price-card.featured li{ color:rgba(251,248,241,0.82); }
+  .price-card li::before{ content:"—"; position:absolute; left:0; color:var(--brass); }
+  .price-card.featured li::before{ color:var(--brass-light); }
+  .price-card .cta-link{
+    align-self:flex-start; font-size:14px; font-weight:600; text-decoration:none;
+    border-bottom:1px solid var(--ink); padding-bottom:3px;
+  }
+  .price-card.featured .cta-link{ border-color:var(--brass-light); color:var(--brass-light); }
+  .price-note{
+    margin-top:28px; padding:22px 26px; border:1px dashed var(--line);
+    font-size:14.5px; color:rgba(34,28,20,0.72); display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  }
+  .price-note strong{ color:var(--ink); }
+
+  /* ---------- WHY ---------- */
+  .why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:36px; }
+  @media (max-width:900px){ .why-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .why-grid{ grid-template-columns:1fr; } }
+  .why-item .why-num{ font-family:'Fraunces', serif; font-style:italic; color:var(--brass); font-size:15px; margin-bottom:16px; }
+  .why-item h3{ font-size:18px; margin-bottom:10px; font-weight:500; }
+  .why-item p{ font-size:14.5px; color:rgba(34,28,20,0.68); margin:0; }
+
+  /* ---------- TEAM ---------- */
+  .team{ background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .team-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  @media (max-width:760px){ .team-grid{ grid-template-columns:1fr; } }
+  .team-card{ background:var(--paper); border:1px solid var(--line); padding:34px 30px; }
+  .team-avatar{
+    width:56px; height:56px; border-radius:50%; border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-size:18px; margin-bottom:22px;
+  }
+  .team-card h3{ font-size:19px; font-weight:500; margin-bottom:4px; }
+  .team-card .role{ font-size:13px; color:var(--brass); font-weight:600; margin-bottom:14px; }
+  .team-card p{ font-size:14px; color:rgba(34,28,20,0.68); margin:0; }
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta-section{ background:var(--ink); color:var(--white); text-align:left; }
+  .cta-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:60px; align-items:center; }
+  @media (max-width:860px){ .cta-grid{ grid-template-columns:1fr; gap:36px; } }
+  .cta-grid h2{ color:var(--white); font-size:clamp(30px,4vw,44px); line-height:1.12; max-width:14ch; }
+  .cta-grid p{ margin-top:20px; color:rgba(251,248,241,0.7); font-size:16.5px; max-width:50ch; }
+  .contact-box{ border:1px solid var(--line-dark); padding:32px; }
+  .contact-row{ display:flex; flex-direction:column; gap:4px; padding:16px 0; border-top:1px solid var(--line-dark); }
+  .contact-row:first-child{ border-top:none; padding-top:0; }
+  .contact-row .clabel{ font-size:12px; letter-spacing:0.03em; color:var(--brass-light); font-weight:600; }
+  .contact-row .cval{ font-size:16px; }
+  .contact-row a{ text-decoration:none; }
+  .contact-row a:hover{ color:var(--brass-light); }
+
+  /* ---------- INQUIRY FORM ---------- */
+  #inquiryForm{ display:flex; flex-direction:column; gap:20px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-size:12px; letter-spacing:0.03em; color:var(--brass-light); font-weight:600; }
+  .field input, .field textarea{
+    background:transparent; border:none; border-bottom:1px solid var(--line-dark);
+    color:var(--white); font-family:'Work Sans', sans-serif; font-size:15px;
+    padding:8px 2px; resize:vertical; outline:none;
+    transition:border-color .2s;
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(251,248,241,0.38); }
+  .field input:focus, .field textarea:focus{ border-color:var(--brass-light); }
+  .form-submit{ margin-top:6px; align-self:flex-start; cursor:pointer; font-family:'Work Sans', sans-serif; }
+  .form-note{ margin:0; font-size:12.5px; color:rgba(251,248,241,0.55); }
+  .form-note.error{ color:#d98a6f; }
+  .form-note.success{ color:var(--brass-light); }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:36px 0; }
+  .footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:rgba(34,28,20,0.55); }
+  .footer-inner a{ text-decoration:none; }
+
+  ::selection{ background:var(--brass); color:var(--white); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="brand-mark">V/N</div>
+      <div class="brand-name">Victor's Nest<span>MARKETING CONSULTANTS</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#team">Team</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get a quote</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#team">Team</a>
+    <a href="#contact" class="mm-cta">Get a quote</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow">MARKETING FOR HOSPITALITY &amp; PROPERTY, UGANDA</div>
+      <h1>Turn every empty property into <em>a booked one.</em></h1>
+      <p class="hero-sub">Victor's Nest builds the brand, content and digital campaigns that hotels, lodges and event venues need to convert online interest into verified stays — not just likes.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Book a discovery call</a>
+        <a class="btn-ghost" href="#pricing">See pricing</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-panel-row"><span class="num">04</span><span class="lbl">Phase delivery, from audit to reporting</span></div>
+      <div class="hero-panel-row"><span class="num">3–6</span><span class="lbl">Platforms actively managed &amp; boosted monthly</span></div>
+      <div class="hero-panel-row"><span class="num">2</span><span class="lbl">Nights on-site content shoot, HD photo &amp; video</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="problem">
+  <div class="wrap problem-grid">
+    <div>
+      <div class="kicker">The gap we close</div>
+      <h2>Your rooms are ready. Your online presence isn't selling them.</h2>
+    </div>
+    <ul class="problem-list">
+      <li><span class="mark">01</span><div><strong>Scattered audiences</strong><span class="desc">Guests and event planners live across five platforms — most properties are only really present on one.</span></div></li>
+      <li><span class="mark">02</span><div><strong>Inquiries left on read</strong><span class="desc">Comments and DMs go unanswered for days, so interested guests book elsewhere.</span></div></li>
+      <li><span class="mark">03</span><div><strong>Outdated visuals</strong><span class="desc">Photos from years ago and old rates on booking channels quietly cost you conversions.</span></div></li>
+      <li><span class="mark">04</span><div><strong>Third-party dependence</strong><span class="desc">Relying on OTAs alone hands over margin that direct bookings would keep in-house.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="kicker">About us</div>
+    <p class="about-lead">Victor's Nest Marketing Consultants is elevating digital marketing and brand management in Uganda with an integrated, growth-focused agency approach that connects clients directly to their target audience with the right communication tools. Our mission is to transform visual content into active inquiries — how short-stay accommodations and hotels showcase their offerings, drive direct bookings, and build sustained digital engagement.</p>
+    <div class="about-grid">
+      <div class="about-block">
+        <div class="kicker">The gap we're bridging</div>
+        <p>Hospitality businesses in competitive regional hubs face scattered online audiences, unanswered social media inquiries, and low conversion on digital channels. Guests and event planners often encounter inconsistent brand messaging, outdated facility photos, or booking channels with old rates — resulting in missed bookings, underutilized event spaces, and dependence on third-party channels.</p>
+      </div>
+      <div class="about-block">
+        <div class="kicker">How we work</div>
+        <p>We deliver a comprehensive brand and marketing management solution tailored to your facility. By centralizing every digital touchpoint — social media management, online booking platforms, high-end photo and video content, targeted ad campaigns, and Google reputation management — we establish a vibrant digital footprint and active lead management that turns online interest into verified stays and event reservations, accelerating room and event venue sales while expanding your reach across regional and international markets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What we do</div>
+      <h2>One partner for every digital touchpoint</h2>
+      <p>From the camera to the campaign to the comment section — we manage it as one connected system, not a patchwork of freelancers.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="glyph">Content</div>
+        <h3>Photography &amp; videography</h3>
+        <p>On-site HD photo and video sessions covering rooms, dining and conference spaces — built into a content library that lasts for months.</p>
+      </div>
+      <div class="service-card">
+        <div class="glyph">Design</div>
+        <h3>Graphic design</h3>
+        <p>Branded graphics for offers, special days and seasonal promotions, at a discounted rate for retainer clients.</p>
+      </div>
+      <div class="service-card">
+        <div class="glyph">Presence</div>
+        <h3>Social media management</h3>
+        <p>Content calendars, weekly draft approvals, and posting across Instagram, Facebook, LinkedIn, TikTok and WhatsApp.</p>
+      </div>
+      <div class="service-card">
+        <div class="glyph">Reach</div>
+        <h3>Targeted ad campaigns</h3>
+        <p>Boosted posts and paid campaigns on Facebook, Instagram and Google Ads, tuned for regional and international travellers.</p>
+      </div>
+      <div class="service-card">
+        <div class="glyph">Bookings</div>
+        <h3>Booking platform management</h3>
+        <p>Rates, availability and listings kept current on Booking.com and Expedia, so no channel is working against you.</p>
+      </div>
+      <div class="service-card">
+        <div class="glyph">Trust</div>
+        <h3>Reputation &amp; lead handling</h3>
+        <p>Google review management and direct message follow-up, so every inquiry gets a timely, on-brand response.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">How it works</div>
+      <h2>A four-phase engagement, start to finish</h2>
+      <p>Every client moves through the same disciplined sequence — nothing launches without an audit first, and nothing goes unmeasured after.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-item">
+        <div class="pnum">01</div>
+        <div><h3>Setup &amp; discovery</h3><p>A discovery meeting, service tier selection, and a full audit of your current online footprint.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="pnum">02</div>
+        <div><h3>Content acquisition</h3><p>An on-site photography and videography session capturing rooms, dining and conference facilities in high definition.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="pnum">03</div>
+        <div><h3>Creation &amp; campaign launch</h3><p>Editing from the content library, drafting posts, and rolling out updated channels, visual assets and targeted ad campaigns.</p></div>
+      </div>
+      <div class="process-item">
+        <div class="pnum">04</div>
+        <div><h3>Optimization &amp; reporting</h3><p>Ongoing lead management, performance tracking and a monthly engagement analytics review.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Investment</div>
+      <h2>Two ways to work with us</h2>
+      <p>Pricing scales with your property size and how much of the work you want handled on-site versus remotely. Every package includes the Victor's Nest consulting fee.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="tag">REMOTE</div>
+        <h3>Basic Content Management</h3>
+        <div class="range">UGX 300,000 – 500,000</div>
+        <div class="per">per month</div>
+        <ul>
+          <li>Content calendar creation and management</li>
+          <li>Editing and posting across 2–3 platforms</li>
+          <li>Discounted-rate graphic design</li>
+          <li>Boosting on 2–3 platforms, 2–3x monthly</li>
+          <li>Performance monitoring and reporting</li>
+        </ul>
+        <a class="cta-link" href="#contact">Request this package</a>
+      </div>
+      <div class="price-card featured">
+        <div class="tag">ON-SITE</div>
+        <h3>Full Property Brand Management</h3>
+        <div class="range">UGX 2,500,000 – 6,100,000</div>
+        <div class="per">per month, incl. 2-night content shoot</div>
+        <ul>
+          <li>Professional photography &amp; videography</li>
+          <li>Full Victor's Nest consultancy service</li>
+          <li>Vehicle hire, driver &amp; fuel (select packages)</li>
+          <li>Optional social media influencer add-on</li>
+          <li>Team meals &amp; accommodation excluded, quoted separately</li>
+        </ul>
+        <a class="cta-link" href="#contact">Request this package</a>
+      </div>
+    </div>
+    <div class="price-note">
+      <div><strong>Also available:</strong> online booking platform management.</div>
+      <div>11–20% of property tariff, depending on the booking platform's terms</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Why Victor's Nest</div>
+      <h2>Built for hospitality, not marketing in general</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-num">Focus</div><h3>Hospitality-only</h3><p>We specialize in property, real estate and short-stay brand management — not a generalist agency stretched across industries.</p></div>
+      <div class="why-item"><div class="why-num">Craft</div><h3>High-end production</h3><p>In-house photography, videography and graphic design, shot specifically to sell rooms and event spaces.</p></div>
+      <div class="why-item"><div class="why-num">Speed</div><h3>Active lead management</h3><p>We watch the inbox and comments so an inquiry never goes unanswered long enough to book elsewhere.</p></div>
+      <div class="why-item"><div class="why-num">Precision</div><h3>Targeting that fits</h3><p>Campaigns built around regional travellers, corporate clients and the safari-transit market — not generic reach.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section team" id="team">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Leadership</div>
+      <h2>Who you'll be working with</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">SK</div>
+        <h3>Solomon Kuteesa</h3>
+        <div class="role">Lead Consultant &amp; Strategy</div>
+        <p>Sets the direction for every engagement — from tier selection through to campaign strategy.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">AA</div>
+        <h3>Annegrate Akello</h3>
+        <div class="role">Brand &amp; Content Operations</div>
+        <p>Runs the content calendar, shoots and day-to-day brand consistency across every channel.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">DC</div>
+        <h3>Digital Marketing Creatives</h3>
+        <div class="role">Photography, video &amp; design</div>
+        <p>The production team behind every photo, reel and graphic in your content library.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section" id="contact">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>Let's fill the calendar.</h2>
+      <p>Share a few details about your property and we'll follow up with a tailored quotation and a call to walk through the right package for you.</p>
+    </div>
+    <div class="contact-box">
+      <form id="inquiryForm" novalidate>
+        <div class="field">
+          <label for="cf-email">Your email</label>
+          <input type="email" id="cf-email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="cf-whatsapp">Your WhatsApp number</label>
+          <input type="tel" id="cf-whatsapp" name="whatsapp" placeholder="+256 7XX XXX XXX" required>
+        </div>
+        <div class="field">
+          <label for="cf-inquiry">Your inquiry</label>
+          <textarea id="cf-inquiry" name="inquiry" rows="4" placeholder="Tell us about your property and what you're looking for..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary form-submit">Send inquiry</button>
+        <p class="form-note" id="formNote">You'll be redirected to WhatsApp to send your message to us.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© 2026 Victor's Nest Marketing Consultants, Uganda.</span>
+    <a href="#services">Services</a>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+  toggle.addEventListener('click', function(){
+    var isOpen = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+  });
+
+  // Inquiry form -> backend function (see /api/inquiry.js), which sends a
+  // WhatsApp notification to the business and an automated WhatsApp
+  // confirmation to the client via Twilio. No phone number lives in this file.
+  (function(){
+    var form = document.getElementById('inquiryForm');
+    var note = document.getElementById('formNote');
+    var submitBtn = form.querySelector('.form-submit');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('cf-email').value.trim();
+      var whatsapp = document.getElementById('cf-whatsapp').value.trim();
+      var inquiry = document.getElementById('cf-inquiry').value.trim();
+
+      if(!email || !whatsapp || !inquiry){
+        note.textContent = 'Please fill in all three fields before sending.';
+        note.className = 'form-note error';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      note.textContent = 'Sending…';
+      note.className = 'form-note';
+
+      fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, whatsapp: whatsapp, inquiry: inquiry })
+      })
+      .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+      .then(function(result){
+        submitBtn.disabled = false;
+        if(result.ok){
+          note.textContent = "Thanks! We've received your inquiry and will reach out to you on WhatsApp shortly.";
+          note.className = 'form-note success';
+          form.reset();
+        } else {
+          note.textContent = (result.data && result.data.error) || 'Something went wrong. Please try again.';
+          note.className = 'form-note error';
+        }
+      })
+      .catch(function(){
+        submitBtn.disabled = false;
+        note.textContent = 'Something went wrong. Please check your connection and try again.';
+        note.className = 'form-note error';
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
