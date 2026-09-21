@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Victor's Nest Marketing Consultants</title>
+<link rel="icon" type="image/jpeg" href="/assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,9 +61,7 @@
   .brand-mark{
     width:38px; height:38px; border-radius:50%;
     border:1.5px solid var(--ink);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces', serif; font-size:14px; font-weight:600;
-    letter-spacing:0.02em;
+    object-fit:cover; object-position:center 38%;
   }
   .brand-name{ font-family:'Fraunces', serif; font-size:18px; font-weight:500; }
   .brand-name span{ display:block; font-family:'Work Sans',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.14em; color:var(--brass); margin-top:1px;}
@@ -283,6 +282,7 @@
   .contact-row .cval{ font-size:16px; }
   .contact-row a{ text-decoration:none; }
   .contact-row a:hover{ color:var(--brass-light); }
+  .hp-field{ display:none; }
 
   /* ---------- INQUIRY FORM ---------- */
   #inquiryForm{ display:flex; flex-direction:column; gap:20px; }
@@ -319,7 +319,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <div class="brand">
-      <div class="brand-mark">V/N</div>
+      <img class="brand-mark" src="/assets/images/logo.jpeg" alt="Victor's Nest logo">
       <div class="brand-name">Victor's Nest<span>MARKETING CONSULTANTS</span></div>
     </div>
     <div class="nav-links">
@@ -562,7 +562,9 @@
       <p>Share a few details about your property and we'll follow up with a tailored quotation and a call to walk through the right package for you.</p>
     </div>
     <div class="contact-box">
-      <form id="inquiryForm" novalidate>
+      <form id="inquiryForm" name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="inquiry">
+        <p class="hp-field"><label>Don't fill this out: <input name="bot-field"></label></p>
         <div class="field">
           <label for="cf-email">Your email</label>
           <input type="email" id="cf-email" name="email" placeholder="you@example.com" required>
@@ -576,7 +578,7 @@
           <textarea id="cf-inquiry" name="inquiry" rows="4" placeholder="Tell us about your property and what you're looking for..." required></textarea>
         </div>
         <button type="submit" class="btn-primary form-submit">Send inquiry</button>
-        <p class="form-note" id="formNote">You'll be redirected to WhatsApp to send your message to us.</p>
+        <p class="form-note" id="formNote">We'll get back to you shortly.</p>
       </form>
     </div>
   </div>
@@ -600,9 +602,8 @@
     a.addEventListener('click', function(){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
   });
 
-  // Inquiry form -> backend function (see /api/inquiry.js), which sends a
-  // WhatsApp notification to the business and an automated WhatsApp
-  // confirmation to the client via Twilio. No phone number lives in this file.
+  // Inquiry form -> Netlify Forms, which routes submissions to an email
+  // notification configured on the site (no address lives in this file).
   (function(){
     var form = document.getElementById('inquiryForm');
     var note = document.getElementById('formNote');
@@ -624,20 +625,19 @@
       note.textContent = 'Sending…';
       note.className = 'form-note';
 
-      fetch('/api/inquiry', {
+      fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, whatsapp: whatsapp, inquiry: inquiry })
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
       })
-      .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
-      .then(function(result){
+      .then(function(res){
         submitBtn.disabled = false;
-        if(result.ok){
-          note.textContent = "Thanks! We've received your inquiry and will reach out to you on WhatsApp shortly.";
+        if(res.ok){
+          note.textContent = "Thanks! We've received your inquiry and will get back to you shortly.";
           note.className = 'form-note success';
           form.reset();
         } else {
-          note.textContent = (result.data && result.data.error) || 'Something went wrong. Please try again.';
+          note.textContent = 'Something went wrong. Please try again.';
           note.className = 'form-note error';
         }
       })
